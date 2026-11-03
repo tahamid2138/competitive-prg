@@ -1,0 +1,29 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+
+class SolutionSerialization {
+public:
+    // Helper function to serialize the tree into a string
+    string serialize(TreeNode* root) {
+        if (root == NULL) {
+            return "()"; // Represent null as empty parentheses or a specific character
+        }
+        // Preorder traversal: (root)(left)(right)
+        return "(" + to_string(root->val) + ")" + serialize(root->left) + serialize(root->right);
+    }
+
+    bool isSameTree(TreeNode* p, TreeNode* q) {
+        string strP = serialize(p);
+        string strQ = serialize(q);
+        return strP == strQ;
+    }
+};
